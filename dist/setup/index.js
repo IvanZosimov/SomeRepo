@@ -71087,7 +71087,7 @@ function resolveVersionInput() {
 function outputResolvedVersions() {
     return __awaiter(this, void 0, void 0, function* () {
         let nodeVersion = yield exec.getExecOutput('node', ['--version'], {
-            ignoreReturnCode: true
+            silent: true
         });
         let npmVersion = yield exec.getExecOutput('npm', ['--version']);
         console.group();
