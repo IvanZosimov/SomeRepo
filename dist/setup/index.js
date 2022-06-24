@@ -71086,10 +71086,13 @@ function resolveVersionInput() {
 }
 function outputResolvedVersions() {
     return __awaiter(this, void 0, void 0, function* () {
-        let nodeVersion = yield exec.getExecOutput('node', ['--version']);
+        let nodeVersion = yield exec.getExecOutput('node', ['--version'], {
+            ignoreReturnCode: true
+        });
         let npmVersion = yield exec.getExecOutput('npm', ['--version']);
         console.group();
         console.log(nodeVersion.stdout, npmVersion.stdout);
+        console.groupEnd();
     });
 }
 
