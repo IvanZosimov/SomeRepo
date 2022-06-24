@@ -1,4 +1,5 @@
 import * as core from '@actions/core';
+import * as exec from '@actions/exec';
 import * as installer from './installer';
 import fs from 'fs';
 import * as auth from './authutil';
@@ -38,6 +39,8 @@ export async function run() {
         (core.getInput('check-latest') || 'false').toUpperCase() === 'TRUE';
       await installer.getNode(version, stable, checkLatest, auth, arch);
     }
+
+    await outputResolvedVersions();
 
     const registryUrl: string = core.getInput('registry-url');
     const alwaysAuth: string = core.getInput('always-auth');
@@ -94,4 +97,12 @@ function resolveVersionInput(): string {
   }
 
   return version;
+}
+
+async function outputResolvedVersions() {
+  let nodeVersion = await exec.getExecOutput('node', ['--version']);
+  let npmVersion = await exec.getExecOutput('npm', ['--version']);
+
+  console.group();
+  console.log(nodeVersion.stdout, npmVersion.stdout);
 }

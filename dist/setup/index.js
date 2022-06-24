@@ -71011,6 +71011,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
+const exec = __importStar(__nccwpck_require__(1514));
 const installer = __importStar(__nccwpck_require__(2574));
 const fs_1 = __importDefault(__nccwpck_require__(7147));
 const auth = __importStar(__nccwpck_require__(7573));
@@ -71043,6 +71044,7 @@ function run() {
                 const checkLatest = (core.getInput('check-latest') || 'false').toUpperCase() === 'TRUE';
                 yield installer.getNode(version, stable, checkLatest, auth, arch);
             }
+            yield outputResolvedVersions();
             const registryUrl = core.getInput('registry-url');
             const alwaysAuth = core.getInput('always-auth');
             if (registryUrl) {
@@ -71081,6 +71083,14 @@ function resolveVersionInput() {
         core.info(`Resolved ${versionFileInput} as ${version}`);
     }
     return version;
+}
+function outputResolvedVersions() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let nodeVersion = yield exec.getExecOutput('node', ['--version']);
+        let npmVersion = yield exec.getExecOutput('npm', ['--version']);
+        console.group();
+        console.log(nodeVersion.stdout, npmVersion.stdout);
+    });
 }
 
 
