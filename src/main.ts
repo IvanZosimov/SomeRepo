@@ -103,7 +103,9 @@ async function outputResolvedVersions() {
   let nodeVersion = await exec.getExecOutput('node', ['--version'], {
     silent: true
   });
-  let npmVersion = await exec.getExecOutput('npm', ['--version']);
+  let npmVersion = await exec.getExecOutput('npm', ['--version'], {
+    silent: true
+  });
 
   console.group();
   console.log(nodeVersion.stdout, npmVersion.stdout);
