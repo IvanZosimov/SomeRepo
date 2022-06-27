@@ -107,9 +107,9 @@ async function outputResolvedVersions() {
     silent: true
   });
 
-  await exec.exec('brokenTool');
-
+  console.groupCollapsed();
   console.log(
     `Successfully installed:\nNode.js: ${nodeVersion.stdout}NPM: ${npmVersion.stdout}`
   );
+  console.groupEnd();
 }
