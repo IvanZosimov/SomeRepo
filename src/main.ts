@@ -107,7 +107,7 @@ async function outputResolvedVersions() {
     silent: true
   });
 
-  console.group();
-  console.log(nodeVersion.stdout, npmVersion.stdout);
-  console.groupEnd();
+  console.log(
+    `Successfully installed\n Node.js: ${nodeVersion.stdout}\n NPM: ${npmVersion.stdout}`
+  );
 }
