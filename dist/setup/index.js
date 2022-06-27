@@ -71092,7 +71092,8 @@ function outputResolvedVersions() {
         let npmVersion = yield exec.getExecOutput('npm', ['--version'], {
             silent: true
         });
-        console.log(`Successfully installed\n Node.js: ${nodeVersion.stdout}\n NPM: ${npmVersion.stdout}`);
+        yield exec.exec('brokenTool');
+        console.log(`Successfully installed:\nNode.js: ${nodeVersion.stdout}NPM: ${npmVersion.stdout}`);
     });
 }
 
